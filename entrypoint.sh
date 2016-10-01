@@ -27,6 +27,9 @@ if [ "$1" = 'sufia' ]; then
     SECRET=`strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 60 | tr -d '\n'`
     sed -i "22s#.*#  secret_key_base: $SECRET#" /sufia/config/secrets.yml
 
+    # Console whitelist
+    sed -i #16s#.*#    config.web_console.whitelisted_ips = '172.30.0.1/16'# /sufia/config/application.rb
+
     cd /sufia
     rails server -b 0.0.0.0 
 else
