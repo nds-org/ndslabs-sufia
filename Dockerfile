@@ -1,6 +1,6 @@
 FROM ruby
 
-# export PATH=/fits-0.8.5/:$PATH
+
 RUN apt-get update -y && \
     apt-get install curl default-jre libreoffice nodejs unzip vim -y && \
     cd / && curl http://projects.iq.harvard.edu/files/fits/files/fits-0.8.5.zip -O && \
@@ -15,6 +15,7 @@ RUN apt-get update -y && \
     rails generate sufia:work Work && \
     rake db:migrate
 
+ENV PATH /fits-0.8.5:$PATH
 
 COPY entrypoint.sh /entrypoint.sh
 
