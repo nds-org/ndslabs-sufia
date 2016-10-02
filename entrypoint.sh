@@ -14,9 +14,9 @@ if [ "$1" = 'sufia' ]; then
 
     # Fedora
     FEDORA_URL=http://$FEDORACOMMONS_PORT_8080_TCP_ADDR:$FEDORACOMMONS_PORT_8080_TCP_PORT/rest
-    sed -i "5s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
-    sed -i "10s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
-    sed -i "15s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
+    sed -i "4s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
+    sed -i "9s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
+    sed -i "14s#.*#  url: $FEDORA_URL#" /sufia/config/fedora.yml
 
     # Redis
     sed -i "2s#.*#  host: $REDIS_PORT_6379_TCP_ADDR#" /sufia/config/redis.yml
@@ -28,7 +28,8 @@ if [ "$1" = 'sufia' ]; then
     sed -i "22s#.*#  secret_key_base: $SECRET#" /sufia/config/secrets.yml
 
     # Console whitelist
-    sed -i #16s#.*#    config.web_console.whitelisted_ips = '172.30.0.1/16'# /sufia/config/application.rb
+    #sed -i "16s#.*#    config.web_console.whitelisted_ips = '%w(127.0.0.1 172.30.0.1/16)'#" /sufia/config/application.rb
+    sed -i "16s#.*#    config.web_console.whiny_requests = false#" /sufia/config/application.rb
 
     cd /sufia
     rails server -b 0.0.0.0 
