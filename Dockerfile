@@ -17,8 +17,8 @@ RUN apt-get update -y && \
 
 ENV PATH /fits-0.8.5:$PATH
 
-COPY entrypoint.sh /entrypoint.sh
-COPY database.yml /sufia/config/database.yml
+COPY ./entrypoint.sh /entrypoint.sh
+COPY ./database.yml /sufia/config/database.yml
 
 EXPOSE 3000
 ENTRYPOINT ["/entrypoint.sh"]
