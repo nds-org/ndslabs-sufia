@@ -23,6 +23,12 @@ if [ "$1" = 'sufia' ]; then
     sed -i "5s#.*#  host: $REDIS_PORT_6379_TCP_ADDR#" /sufia/config/redis.yml
     sed -i "8s#.*#  host: $REDIS_PORT_6379_TCP_ADDR#" /sufia/config/redis.yml
 
+    # Postgres
+    POSTGRES_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_PORT_5432_TCP_ADDR:5432/$POSTGRES_DB
+    sed -i "8s#.*#  url:  $POSTGRES_URL#" /sufia/config/database.yml
+    sed -i "12s#.*#  url:  $POSTGRES_URL#" /sufia/config/database.yml
+    sed -i "16s#.*#  url:  $POSTGRES_URL#" /sufia/config/database.yml
+
     # Secret
     SECRET=`strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 60 | tr -d '\n'`
     sed -i "22s#.*#  secret_key_base: $SECRET#" /sufia/config/secrets.yml
@@ -32,6 +38,7 @@ if [ "$1" = 'sufia' ]; then
     sed -i "16s#.*#    config.web_console.whiny_requests = false#" /sufia/config/application.rb
 
     cd /sufia
+    rake db:migrate
     rails server -b 0.0.0.0 
 else
    exec "$@"

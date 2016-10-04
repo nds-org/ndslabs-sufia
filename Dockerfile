@@ -10,14 +10,15 @@ RUN apt-get update -y && \
     gem install solr_wrapper && \
     cd / && rails new sufia && cd /sufia && \
     echo "gem 'sufia', '7.1.0'" >> Gemfile && \
+    echo "gem 'pg'" >> Gemfile && \
     bundle install && \
     rails generate sufia:install -f && \
-    rails generate sufia:work Work && \
-    rake db:migrate
+    rails generate sufia:work Work
 
 ENV PATH /fits-0.8.5:$PATH
 
 COPY entrypoint.sh /entrypoint.sh
+COPY database.yml /sufia/config/database.yml
 
 EXPOSE 3000
 ENTRYPOINT ["/entrypoint.sh"]
