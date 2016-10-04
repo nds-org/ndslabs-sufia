@@ -9,7 +9,8 @@ RUN apt-get update -y && \
     gem install bundler && \
     gem install solr_wrapper && \
     cd / && rails new sufia && cd /sufia && \
-    echo "gem 'sufia', '7.1.0'" >> Gemfile && \
+    echo "gem 'sufia', '7.2.0'" >> Gemfile && \
+    echo "gem 'flipflop', git: 'https://github.com/jcoyne/flipflop.git', branch: 'hydra'" >> Gemfile && \
     echo "gem 'pg'" >> Gemfile && \
     bundle install && \
     rails generate sufia:install -f && \
